@@ -44,12 +44,12 @@ const frame_data = {
     "triple": [478, 450, 270]
   },
   "0": {
-    "double": [06, 01, 07],
+    "double": ["06", "01", "07"],
     "triple": [235, 370, 569]
   },
 }
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
