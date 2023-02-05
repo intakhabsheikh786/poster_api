@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node" : "16.13.1"
+  },
   "dependencies": {
     "body-parser": "^1.20.1",
     "dom-parser": "^0.1.6",
