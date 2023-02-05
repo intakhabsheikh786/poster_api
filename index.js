@@ -54,6 +54,11 @@ app.use((req, res, next) => {
   next();
 });
 
+
+app.get("/", async (req, res) => {
+  res.send("Working...");
+})
+
 app.post("/download-chart", async (req, res) => {
   // Get the input text from the request body
   const { date: charTdate, data } = req.body;
