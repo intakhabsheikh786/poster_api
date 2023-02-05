@@ -1,0 +1,17 @@
+:root {
+    /* fonts */
+    --font-roboto: Roboto;
+    --font-roboto-slab: "Roboto Slab";
+    --font-inknut-antiqua: "Inknut Antiqua";
+  
+    /* font sizes */
+    --font-size-xs: 30px;
+    --font-size-sm: 40px;
+    --font-size-base: 50px;
+    --font-size-lg: 150px;
+  
+    /* Colors */
+    --color-brown: #c03b3b;
+    --color-black: #000;
+  }
+  

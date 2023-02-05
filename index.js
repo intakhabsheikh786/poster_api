@@ -2,6 +2,8 @@ const express = require("express");
 const puppeteer = require("puppeteer");
 const app = express();
 app.use(express.json());
+const path = require('path');
+const fs = require('fs');
 
 const frame_data = {
   "1": {
@@ -47,6 +49,7 @@ const frame_data = {
   },
 }
 
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -55,7 +58,7 @@ app.use((req, res, next) => {
 });
 
 
-app.get("/", async (req, res) => {
+app.get("/test", async (req, res) => {
   res.send("Working...");
 })
 
@@ -69,7 +72,8 @@ app.post("/download-chart", async (req, res) => {
 
   // Set the page HTML
   await page.setViewport({ width: 1024, height: 768 });
-  await page.goto('https://rad-begonia-d08e07.netlify.app/index.html');
+  // await page.goto('https://rad-begonia-d08e07.netlify.app/index.html');
+  await page.goto('https://poster-api-tnxv.onrender.com/');
   // await page.goto('http://192.168.0.107:5500/html/index.html');
 
   // Generate a screenshot of the page

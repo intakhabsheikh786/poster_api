@@ -1,0 +1,304 @@
+body {
+    margin: 0;
+    line-height: normal;
+  }
+  .div {
+    top: -25px;
+    left: 362px;
+    font-size: var(--font-size-lg);
+    font-family: var(--font-inknut-antiqua);
+    display: inline-block;
+    width: 524px;
+    height: 255px;
+    -webkit-text-stroke: 2px #000;
+  }
+  .div,
+  .div1,
+  .kalyan-to-main {
+    position: absolute;
+    color: var(--color-brown);
+  }
+  .div1 {
+    top: 881px;
+    left: 267px;
+    font-size: var(--font-size-xs);
+    font-family: var(--font-inknut-antiqua);
+    display: inline-block;
+    width: 462px;
+    height: 88px;
+  }
+  .kalyan-to-main {
+    top: 260px;
+    left: 419px;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-roboto);
+  }
+  .image-1-icon {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 36px;
+    height: 47px;
+    object-fit: cover;
+  }
+  .div2 {
+    position: absolute;
+    top: 0;
+    left: 43px;
+    font-weight: 800;
+  }
+  .date-30-01-2023,
+  .image-1-parent {
+    position: absolute;
+    font-family: var(--font-roboto);
+  }
+  .image-1-parent {
+    top: 330px;
+    left: 90px;
+    width: 159px;
+    height: 59px;
+  }
+  .date-30-01-2023 {
+    top: 336px;
+    left: 462px;
+    font-size: var(--font-size-sm);
+    font-weight: 800;
+  }
+  .image-2-icon,
+  .outdoor-hunter-logo-design-tem-icon {
+    position: absolute;
+    top: 15px;
+    left: 47px;
+    width: 288px;
+    height: 282px;
+    object-fit: cover;
+  }
+  .image-2-icon {
+    top: 413px;
+    left: 146px;
+    width: 613px;
+    height: 79px;
+  }
+  .div10,
+  .div11,
+  .div3,
+  .div4,
+  .div5,
+  .div6,
+  .div7,
+  .div8,
+  .div9 {
+    position: absolute;
+    top: 581px;
+    left: 40px;
+    font-weight: 500;
+    display: inline-block;
+    width: 70px;
+    height: 60px;
+  }
+  .div10,
+  .div11,
+  .div4,
+  .div5,
+  .div6,
+  .div7,
+  .div8,
+  .div9 {
+    left: 334px;
+  }
+  .div10,
+  .div11,
+  .div5,
+  .div6,
+  .div7,
+  .div8,
+  .div9 {
+    left: 236px;
+    width: 91px;
+  }
+  .div10,
+  .div11,
+  .div6,
+  .div7,
+  .div8,
+  .div9 {
+    left: 608px;
+    width: 70px;
+  }
+  .div10,
+  .div11,
+  .div7,
+  .div8,
+  .div9 {
+    left: 513px;
+    width: 92px;
+  }
+  .div10,
+  .div11,
+  .div8,
+  .div9 {
+    left: 784px;
+  }
+  .div10,
+  .div11,
+  .div9 {
+    top: 598px;
+    left: 123px;
+    font-size: var(--font-size-lg);
+    color: var(--color-brown);
+    width: 70px;
+    height: 134px;
+  }
+  .div10,
+  .div11 {
+    left: 406px;
+  }
+  .div11 {
+    left: 678px;
+  }
+  .div12,
+  .div13,
+  .div14,
+  .div15,
+  .div16,
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    position: absolute;
+    top: 659px;
+    left: 40px;
+    font-weight: 500;
+    display: inline-block;
+    width: 70px;
+    height: 60px;
+  }
+  .div13,
+  .div14,
+  .div15,
+  .div16,
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 334px;
+  }
+  .div14,
+  .div15,
+  .div16,
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 236px;
+    width: 91px;
+  }
+  .div15,
+  .div16,
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 608px;
+    width: 70px;
+  }
+  .div16,
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 513px;
+    width: 78px;
+  }
+  .div17,
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 784px;
+  }
+  .div18,
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    top: 731px;
+    left: 40px;
+    width: 70px;
+  }
+  .div19,
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 334px;
+  }
+  .div20,
+  .div21,
+  .div22,
+  .div23 {
+    left: 236px;
+    width: 78px;
+  }
+  .div21,
+  .div22,
+  .div23 {
+    left: 608px;
+    width: 70px;
+  }
+  .div22,
+  .div23 {
+    left: 513px;
+    width: 78px;
+  }
+  .div23 {
+    left: 784px;
+  }
+  .instagram-post-4-child {
+    position: absolute;
+    top: 1019px;
+    left: 0;
+    background-color: var(--color-brown);
+    width: 904px;
+    height: 61px;
+  }
+  .pro-champak-laal {
+    position: absolute;
+    top: 1032px;
+    left: 313px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    font-family: var(--font-roboto);
+    color: #fff;
+  }
+  .instagram-post-4 {
+    border: 1px solid;
+    position: relative;
+    background-color: #fffff3;
+    width: 900px;
+    height: 1080px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-base);
+    color: var(--color-black);
+    font-family: var(--font-roboto-slab);
+  }
+  
