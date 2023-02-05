@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 const path = require('path');
 const fs = require('fs');
-
+const POSTER_STRUCTURE_URL = process.env.POSTER_STRUCTURE_URL;
 const frame_data = {
   "1": {
     "double": [14, 17, 10],
@@ -63,6 +63,7 @@ app.get("/test", async (req, res) => {
 })
 
 app.post("/download-chart", async (req, res) => {
+  console.log(POSTER_STRUCTURE_URL);
   // Get the input text from the request body
   const { date: charTdate, data } = req.body;
 
@@ -73,7 +74,7 @@ app.post("/download-chart", async (req, res) => {
   // Set the page HTML
   await page.setViewport({ width: 1024, height: 768 });
   // await page.goto('https://rad-begonia-d08e07.netlify.app/index.html');
-  await page.goto('https://poster-api-tnxv.onrender.com/');
+  await page.goto(POSTER_STRUCTURE_URL);
   // await page.goto('http://192.168.0.107:5500/html/index.html');
 
   // Generate a screenshot of the page
@@ -139,6 +140,12 @@ app.post("/download-chart", async (req, res) => {
     `attachment; filename=downloadable-card.png`
   );
 
+  res.set({
+    'Content-Type': 'image/png',
+    'Content-Encoding': 'binary'
+  });
+
+  console.log("Before sending the response.");
   // Send the PNG image in the response
   res.send(screenshot);
 });
