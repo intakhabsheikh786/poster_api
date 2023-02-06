@@ -5,6 +5,7 @@ app.use(express.json());
 const path = require('path');
 const fs = require('fs');
 const POSTER_STRUCTURE_URL = process.env.POSTER_STRUCTURE_URL;
+const PORT = process.env.PORT || 3000;
 const frame_data = {
   "1": {
     "double": [14, 17, 10],
@@ -73,9 +74,7 @@ app.post("/download-chart", async (req, res) => {
 
   // Set the page HTML
   await page.setViewport({ width: 1024, height: 768 });
-  // await page.goto('https://rad-begonia-d08e07.netlify.app/index.html');
   await page.goto(POSTER_STRUCTURE_URL);
-  // await page.goto('http://192.168.0.107:5500/html/index.html');
 
   // Generate a screenshot of the page
   for (let index0 = 0; index0 < data.length; index0++) {
@@ -150,6 +149,6 @@ app.post("/download-chart", async (req, res) => {
   res.send(screenshot);
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
