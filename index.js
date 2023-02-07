@@ -4,8 +4,11 @@ const app = express();
 app.use(express.json());
 const path = require('path');
 const fs = require('fs');
-const POSTER_STRUCTURE_URL = process.env.POSTER_STRUCTURE_URL;
+const POSTER_STRUCTURE_URL = process.env.POSTER_STRUCTURE_URL || "http://localhost:3000/";
 const PORT = process.env.PORT || 3000;
+const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium-browser";
+process.env.PUPPETEER_NO_SANDBOX = 1;
+
 const frame_data = {
   "1": {
     "double": [14, 17, 10],
@@ -65,88 +68,109 @@ app.get("/test", async (req, res) => {
 
 app.post("/download-chart", async (req, res) => {
   console.log(POSTER_STRUCTURE_URL);
+  console.log(PUPPETEER_EXECUTABLE_PATH);
   // Get the input text from the request body
   const { date: charTdate, data } = req.body;
 
   // Launch a headless instance of Chrome
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  let browser = "";
+  let screenshot = "";
+  try {
+    console.log("trying launching the browser...")
+    browser = await puppeteer.launch(
+      { executablePath: PUPPETEER_EXECUTABLE_PATH, args: ['--no-sandbox'] }
+    );
+    console.log("trying launching the browser...")
 
-  // Set the page HTML
-  await page.setViewport({ width: 1024, height: 768 });
-  await page.goto(POSTER_STRUCTURE_URL);
+    console.log("browser launched...");
+    const page = await browser.newPage();
 
-  // Generate a screenshot of the page
-  for (let index0 = 0; index0 < data.length; index0++) {
-    const element = data[index0];
-    const single_index = `single0`;
-    const inputText = { element, name: single_index, index: index0 };
-    // console.log(`className ${single_index} ${index0}`);
+    // Set the page HTML
+    await page.setViewport({ width: 1024, height: 768 });
+    await page.goto(POSTER_STRUCTURE_URL);
+
+    console.log("goto ended...");
+
+    // Generate a screenshot of the page
+    for (let index0 = 0; index0 < data.length; index0++) {
+      const element = data[index0];
+      const single_index = `single0`;
+      const inputText = { element, name: single_index, index: index0 };
+      // console.log(`className ${single_index} ${index0}`);
+
+      await page.evaluate((inputText) => {
+        document.getElementsByClassName(inputText["name"])[inputText["index"]].textContent = inputText["element"];
+      }, inputText);
+
+      const double = frame_data[element]["double"];
+
+      for (let index1 = 0; index1 < double.length; index1++) {
+        const element = double[index1];
+        const double_index = `double${index0}`;
+        const inputText = { element, name: double_index, index: index1 };
+        // console.log(`className ${double_index} ${index1}`);
+        await page.evaluate((inputText) => {
+          document.getElementsByClassName(inputText["name"])[inputText["index"]].textContent = inputText["element"];
+        }, inputText);
+      }
+
+      const triple = frame_data[element]["triple"];
+      for (let index1 = 0; index1 < triple.length; index1++) {
+        const element = triple[index1];
+        const triple_index = `triple${index0}`;
+        const inputText = { element, name: triple_index, index: index1 };
+        // console.log(`className ${triple_index} ${index1}`);
+        await page.evaluate((inputText) => {
+          document.getElementsByClassName(inputText["name"])[inputText["index"]].textContent = inputText["element"];
+        }, inputText);
+      }
+    }
 
     await page.evaluate((inputText) => {
-      document.getElementsByClassName(inputText["name"])[inputText["index"]].textContent = inputText["element"];
-    }, inputText);
+      document.getElementById('date').textContent = inputText;
+    }, charTdate);
 
-    const double = frame_data[element]["double"];
+    await page.evaluateHandle("document.fonts.ready");
 
-    for (let index1 = 0; index1 < double.length; index1++) {
-      const element = double[index1];
-      const double_index = `double${index0}`;
-      const inputText = { element, name: double_index, index: index1 };
-      // console.log(`className ${double_index} ${index1}`);
-      await page.evaluate((inputText) => {
-        document.getElementsByClassName(inputText["name"])[inputText["index"]].textContent = inputText["element"];
-      }, inputText);
-    }
+    const card = await page.$('.instagram-post-4');
+    const { x, y, width, height } = await card.boundingBox();
 
-    const triple = frame_data[element]["triple"];
-    for (let index1 = 0; index1 < triple.length; index1++) {
-      const element = triple[index1];
-      const triple_index = `triple${index0}`;
-      const inputText = { element, name: triple_index, index: index1 };
-      // console.log(`className ${triple_index} ${index1}`);
-      await page.evaluate((inputText) => {
-        document.getElementsByClassName(inputText["name"])[inputText["index"]].textContent = inputText["element"];
-      }, inputText);
-    }
+
+
+    screenshot = await card.screenshot({
+      type: 'png',
+      clip: { x, y, width, height }
+    });
+
+
+
+    console.log("screenshot-taken...");
+
+    // Close the browser
+    await browser.close();
+  } catch (error) {
+    console.log(error);
   }
+  if (screenshot.length > 0) {
+    // Set the response content type to PNG
+    res.setHeader("Content-Type", "image/png");
 
-  await page.evaluate((inputText) => {
-    document.getElementById('date').textContent = inputText;
-  }, charTdate);
+    // Set the content disposition to trigger a download
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=downloadable-card.png`
+    );
 
-  await page.evaluateHandle("document.fonts.ready");
-
-  const card = await page.$('.instagram-post-4');
-  const { x, y, width, height } = await card.boundingBox();
-
-
-
-  const screenshot = await card.screenshot({
-    type: 'png',
-    clip: { x, y, width, height }
-  });
-
-  // Close the browser
-  await browser.close();
-
-  // Set the response content type to PNG
-  res.setHeader("Content-Type", "image/png");
-
-  // Set the content disposition to trigger a download
-  res.setHeader(
-    "Content-Disposition",
-    `attachment; filename=downloadable-card.png`
-  );
-
-  res.set({
-    'Content-Type': 'image/png',
-    'Content-Encoding': 'binary'
-  });
+    res.set({
+      'Content-Type': 'image/png',
+      'Content-Encoding': 'binary'
+    });
+  }
 
   console.log("Before sending the response.");
   // Send the PNG image in the response
-  res.send(screenshot);
+  screenshot.length > 0 ? res.send(screenshot) : res.status(500).send("Something is wrong...");
+
 });
 
 app.listen(PORT, () => {
