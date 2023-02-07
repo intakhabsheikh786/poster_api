@@ -5,7 +5,7 @@ app.use(express.json());
 const path = require('path');
 const fs = require('fs');
 const PORT = process.env.PORT || 3000;
-const POSTER_STRUCTURE_URL = process.env.POSTER_STRUCTURE_URL || `http://localhost:${PORT}/`;
+const POSTER_STRUCTURE_URL = process.env.POSTER_STRUCTURE_URL || `http://127.0.0.1:${PORT}/`;
 const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium-browser";
 process.env.PUPPETEER_NO_SANDBOX = 1;
 
